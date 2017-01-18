@@ -15,8 +15,8 @@ build:
     - composer self-update
     - composer update
     - mkdir -p shippable/testresults shippable/codecoverage
-    - vendor/bin/phpunit --log-junit shippable/testresults/junit.xml --coverage-xml shippable/codecoverage test.php
-
+    - vendor/bin/phpunit --log-junit shippable/testresults/junit.xml --coverage-xml shippable/codecoverage
+    
   post_ci:
     - ls -a
     - pwd
