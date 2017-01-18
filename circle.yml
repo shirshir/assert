@@ -1,0 +1,22 @@
+
+machine:
+  timezone: Europe/Amsterdam
+
+  php:
+    version: 7.1.0
+
+  environment:
+    CIRCLE_ENV: test
+
+dependencies:
+  pre:
+    - rm /opt/circleci/php/$(phpenv global)/etc/conf.d/xdebug.ini
+    - composer self-update
+    - composer update --no-progress
+
+  cache_directories:
+    - "~/.composer"
+
+test:
+  override:
+    - vendor/bin/phpunit
