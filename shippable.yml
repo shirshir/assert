@@ -1,0 +1,23 @@
+language: php
+
+php:
+  - 5.6
+  - 7
+
+build:
+  pre_ci:
+    - echo "this is master branch"
+
+  ci:
+    - composer update
+    - phpunit
+
+  post_ci:
+    - ls -a
+    - pwd
+
+  cache: true
+
+  cache_dir_list: 
+    - $SHIPPABLE_BUILD_DIR/.composer/cache
+    - $SHIPPABLE_BUILD_DIR/.php-cs-fixer
