@@ -7,16 +7,18 @@ machine:
 
   environment:
     CIRCLE_ENV: test
+    COMPOSER_DISABLE_XDEBUG_WARN: 1
 
 dependencies:
   pre:
-    - rm /opt/circleci/php/$(phpenv global)/etc/conf.d/xdebug.ini
+#    - rm /opt/circleci/php/$(phpenv global)/etc/conf.d/xdebug.ini
     - composer self-update
     - composer update --no-progress
+    - mkdir -p $CIRCLE_ARTIFACTS/testresults $CIRCLE_ARTIFACTS/codecoverage
 
   cache_directories:
     - "~/.composer"
 
 test:
   override:
-    - vendor/bin/phpunit
+    - vendor/bin/phpunit --log-junit $CIRCLE_ARTIFACTS/testresults/junit.xml --coverage-xml $CIRCLE_ARTIFACTS/codecoverage
