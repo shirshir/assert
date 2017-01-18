@@ -10,7 +10,7 @@ build:
 
   ci:
     - composer update
-    - phpunit
+    - vendor/bin/phpunit
 
   post_ci:
     - ls -a
