@@ -3,14 +3,19 @@ language: php
 php:
   - 5.6
   - 7
-
+  
+env:
+  - COMPOSER_DISABLE_XDEBUG_WARN=1
+  
 build:
   pre_ci:
     - echo "this is master branch"
 
   ci:
+    - composer self-update
     - composer update
-    - vendor/bin/phpunit
+    - mkdir -p shippable/testresults shippable/codecoverage
+    - vendor/bin/phpunit --log-junit shippable/testresults/junit.xml --coverage-xml shippable/codecoverage test.php
 
   post_ci:
     - ls -a
@@ -19,5 +24,5 @@ build:
   cache: true
 
   cache_dir_list: 
-    - $SHIPPABLE_BUILD_DIR/.composer/cache
+    - $HOME/.composer/cache
     - $SHIPPABLE_BUILD_DIR/.php-cs-fixer
